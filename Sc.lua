@@ -20,7 +20,7 @@ UIS.InputBegan:Connect(function(input)
                     VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
                     VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
                     lastJumpTime = currentTime
-                    task.wait(0.07)  -- Kısa bekleme
+                    task.wait(0.06)  -- Kısa bekleme
                 end
                 task.wait(waitTime)  -- Bekleme süresi
             end
