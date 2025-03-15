@@ -3,7 +3,7 @@ local VIM = game:GetService("VirtualInputManager")
 local runService = game:GetService("RunService")
 local isHolding = false
 
-local jumpSpeed = 0.09  -- Minimum 90ms
+local jumpSpeed = 0.02  -- Minimum 90ms
 local waitTime = 0.5  -- Bekleme süresi 0.5s olarak ayarlandı
 
 -- Alt tuşuna basılı tutma ve zıplama
@@ -20,7 +20,7 @@ UIS.InputBegan:Connect(function(input)
                     VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
                     VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
                     lastJumpTime = currentTime
-                    task.wait(0.1)  -- Kısa bekleme
+                    task.wait(0.07)  -- Kısa bekleme
                 end
                 task.wait(waitTime)  -- Bekleme süresi
             end
