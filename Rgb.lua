@@ -10,7 +10,11 @@ local colors = {
     Color3.fromRGB(0, 255, 0),    -- Yeşil
     Color3.fromRGB(0, 0, 255),    -- Mavi
     Color3.fromRGB(75, 0, 130),   -- Çivit Mavisi
-    Color3.fromRGB(148, 0, 211)   -- Mor
+    Color3.fromRGB(148, 0, 211),  -- Mor
+    Color3.fromRGB(255, 192, 203), -- Pembe
+    Color3.fromRGB(0, 255, 255),  -- Camgöbeği
+    Color3.fromRGB(128, 0, 128),  -- Eflatun
+    Color3.fromRGB(255, 140, 0)   -- Koyu Turuncu
 }
 
 local function getPlayerMagnet(player)
@@ -21,6 +25,21 @@ local function getPlayerMagnet(player)
         return magRope or magRail
     end
     return nil
+end
+
+local function updateTextures(magnet)
+    if magnet then
+        for _, part in pairs({"Primary", "Secondary"}) do
+            local section = magnet:FindFirstChild(part)
+            if section then
+                for _, texture in pairs(section:GetChildren()) do
+                    if texture:IsA("Texture") then
+                        texture.Texture = "http://www.roblox.com/asset/?id=1304449184"
+                    end
+                end
+            end
+        end
+    end
 end
 
 local function changeColors()
@@ -37,13 +56,19 @@ local function changeColors()
                 if rootPart and rootPart:FindFirstChild("Light") then
                     local light = rootPart.Light
                     light.Color = color
+                    light.Brightness = 7  -- Brightness değerini 7 yap
                 end
                 if magnet then
-                    if magnet:FindFirstChild("Primary") then
-                        magnet.Primary.Color = color
+                    updateTextures(magnet)
+                    for _, part in pairs({"Primary", "Secondary"}) do
+                        local section = magnet:FindFirstChild(part)
+                        if section then
+                            section.Color = color
+                        end
                     end
-                    if magnet:FindFirstChild("Secondary") then
-                        magnet.Secondary.Color = color
+                    local gripUnion = magnet:FindFirstChild("GripUnion")
+                    if gripUnion then
+                        gripUnion.Color = color
                     end
                 end
             end
