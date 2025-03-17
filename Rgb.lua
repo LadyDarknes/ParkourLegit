@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local running = true -- Scriptin çalışmasını kontrol eden değişken
+local running = true -- BÖYLEKONTROLCÜNÜNANNESİNİS2M
 
 local colors = {
     Color3.fromRGB(255, 0, 0),    -- Kırmızı
