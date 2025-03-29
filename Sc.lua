@@ -44,3 +44,31 @@ m.KeyDown:connect(function(k)
 		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Seated")
 	end
 end)
+
+
+local player = game.Players.LocalPlayer
+local userInputService = game:GetService("UserInputService")
+local boostMultiplier = 2 -- Hızı artırma katsayısı
+
+local function setupCharacter(character)
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+
+    local function onKeyPress(input, gameProcessed)
+        if input.KeyCode == Enum.KeyCode.Space and not gameProcessed then -- Space tuşuna basınca
+            local currentVelocity = rootPart.Velocity
+            local newVelocity = Vector3.new(currentVelocity.X * boostMultiplier, currentVelocity.Y, currentVelocity.Z * boostMultiplier)
+            rootPart.Velocity = newVelocity
+        end
+    end
+
+    userInputService.InputBegan:Connect(onKeyPress)
+end
+
+-- Mevcut karakteri al ve fonksiyonu çalıştır
+if player.Character then
+    setupCharacter(player.Character)
+end
+
+-- Yeni karakter spawn olduğunda tekrar çalıştır
+player.CharacterAdded:Connect(setupCharacter)
+
