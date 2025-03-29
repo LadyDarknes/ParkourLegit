@@ -55,9 +55,8 @@ local function setupCharacter(character)
     local function onKeyPress(input, gameProcessed)
         if input.KeyCode == Enum.KeyCode.Space and not gameProcessed then -- Space tuşuna basınca
             local currentVelocity = rootPart.Velocity
-            local direction = rootPart.CFrame.LookVector -- Karakterin baktığı yön
-            local newVelocity = direction * (math.sqrt(currentVelocity.X^2 + currentVelocity.Z^2) * boostMultiplier)
-            rootPart.Velocity = Vector3.new(newVelocity.X, currentVelocity.Y, newVelocity.Z)
+            local newVelocity = Vector3.new(currentVelocity.X * boostMultiplier, currentVelocity.Y, currentVelocity.Z * boostMultiplier)
+            rootPart.Velocity = newVelocity
         end
     end
 
