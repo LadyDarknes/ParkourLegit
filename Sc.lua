@@ -45,7 +45,6 @@ m.KeyDown:connect(function(k)
 	end
 end)
 
-
 local player = game.Players.LocalPlayer
 local userInputService = game:GetService("UserInputService")
 local boostMultiplier = 2 -- Hızı artırma katsayısı
@@ -56,8 +55,9 @@ local function setupCharacter(character)
     local function onKeyPress(input, gameProcessed)
         if input.KeyCode == Enum.KeyCode.Space and not gameProcessed then -- Space tuşuna basınca
             local currentVelocity = rootPart.Velocity
-            local newVelocity = Vector3.new(currentVelocity.X * boostMultiplier, currentVelocity.Y, currentVelocity.Z * boostMultiplier)
-            rootPart.Velocity = newVelocity
+            local direction = rootPart.CFrame.LookVector -- Karakterin baktığı yön
+            local newVelocity = direction * (math.sqrt(currentVelocity.X^2 + currentVelocity.Z^2) * boostMultiplier)
+            rootPart.Velocity = Vector3.new(newVelocity.X, currentVelocity.Y, newVelocity.Z)
         end
     end
 
@@ -71,4 +71,3 @@ end
 
 -- Yeni karakter spawn olduğunda tekrar çalıştır
 player.CharacterAdded:Connect(setupCharacter)
-
